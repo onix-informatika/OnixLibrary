@@ -1,3 +1,8 @@
+function oxNavigator(name: String = 'bMenuDBNavigator'): TNavigator3;
+begin
+    Result := TNavigator3(OwnerForm.FindComponent(name));
+end;
+
 function oxNavigatorAcKey(name: String = 'bMenuDBNavigator'): String;
 var comp: TComponent;
 begin

@@ -1,3 +1,52 @@
+//variants
+function oxMakeDSWithParams(sql: String; params: array of Variant): TdlDataSet;
+var i: Integer;
+    pName: string;
+begin        
+    Result := TdlDataSet.Create(Ares);
+    Result.SQL.Text := sql;
+    Result.Debug := true;
+    Result.DontHandleException := true;
+    
+    for i := 0 to Length(params) - 1 do
+    begin                           
+        pname := 'p' + inttostr(i);
+        _macro.EventLogAdd('type of param value: ' + IntToStr(VarType(params[i])));
+        if VarType(params[i]) = 8209 then
+        begin    
+            raise Exception.Create('Are you using oxSQLStoreBlob for blobs?');               
+        end;
+                    
+        Result.Params.ParamByName(pname).Value := params[i];
+    end; 
+end;
+
+
+
+
+
+function oxSQLExpRowWithParams(sql: string; params: array of Variant): TdlDataSet;
+var firstFieldName: string;
+begin
+    Result := oxMakeDSWithParams(sql, params);
+             
+    try
+        Result.Open;
+    except on E:Exception do
+        begin 
+            if not E.message.Contains('return rows') then 
+            begin
+                _macro.EventLogAdd('Thrown exception: ' + E.message);
+                raise E;
+            end; 
+        end;
+    end;
+end;
+
+
+
+
+
 function oxSQLExpWithParams(sql: string; params: array of Variant): string;
 var v: Variant;
     i: Integer;

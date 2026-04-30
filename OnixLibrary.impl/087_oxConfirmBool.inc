@@ -1,3 +1,5 @@
+//controls, dialogs
+
 function oxConfirmBool(what: String): Boolean;
 var res: Integer;
 begin

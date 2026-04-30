@@ -1,3 +1,4 @@
+// cxgrid, cxcalc
 function oxAddNumericColumn(gridName: String; columnCaption: String; columnFieldName: String; width: integer = 50): TcxGridDBColumn;
 begin
 	Result := oxAddColumn(gridName, columnCaption, columnFieldName, width);

@@ -1,3 +1,5 @@
+//controls, dialogs
+
 procedure oxConfirm(what: String; onYes: oxCallback = null; onNo: oxCallback = null);
 var res: Integer;
 begin
